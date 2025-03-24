@@ -4,7 +4,7 @@ using Microsoft.Extensions.Hosting;
 using ModelContextProtocol;
 using ModelContextProtocol.Protocol.Types;
 using System.Net.Http.Headers;
-using Tizzani.MCP.AzureDevOps.WorkItemTracking.Comments;
+using Tizzani.AzureDevOps.MCP;
 
 var builder = Host.CreateEmptyApplicationBuilder(settings: null);
 builder.Configuration.AddCommandLine(args);
@@ -28,7 +28,7 @@ builder.Services.AddScoped(_ =>
 
 builder.Services.AddMcpServer(o =>
 {
-    o.ServerInfo = new Implementation { Name = "Tizzani.MCP.AzureDevOps.WorkItemTracking.Comments", Version = "1.0.0" };
+    o.ServerInfo = new Implementation { Name = "Tizzani.AzureDevOps.MCP", Version = "1.0.0" };
     o.Capabilities = new ServerCapabilities
     {
         Tools = new ToolsCapability

@@ -18,13 +18,13 @@ Console.WriteLine("Starting server...");
 var client = await McpClientFactory.CreateAsync(
     new McpServerConfig
     {
-        Id = "Tizzani.MCP.AzureDevOps.WorkItemTracking.Comments",
-        Name = "Tizzani.MCP.AzureDevOps.WorkItemTracking.Comments",
+        Id = "Tizzani.AzureDevOps.MCP",
+        Name = "Tizzani.AzureDevOps.MCP",
         TransportType = TransportTypes.StdIo,
         TransportOptions = new Dictionary<string, string>
         {
             ["command"] = "dotnet",
-            ["arguments"] = $"run --project ../Tizzani.MCP.AzureDevOps.WorkItemTracking.Comments/Tizzani.MCP.AzureDevOps.WorkItemTracking.Comments.csproj --ado_project=Beacon --ado_organization=BeaconLMS --ado_token={accessToken}"
+            ["arguments"] = $"run --project ../Tizzani.AzureDevOps.MCP/Tizzani.AzureDevOps.MCP.csproj --ado_project=Beacon --ado_organization=BeaconLMS --ado_token={accessToken}"
         }
     },
     new McpClientOptions 

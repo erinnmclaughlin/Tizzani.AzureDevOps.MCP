@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Tizzani.MCP.AzureDevOps.WorkItemTracking.Comments\Tizzani.MCP.AzureDevOps.WorkItemTracking.Comments.csproj" />
+    <ProjectReference Include="..\Tizzani.AzureDevOps.MCP\Tizzani.AzureDevOps.MCP.csproj" />
   </ItemGroup>
 
 </Project>

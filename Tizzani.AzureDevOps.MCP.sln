@@ -1,8 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tizzani.MCP.AzureDevOps.WorkItemTracking.Comments", "Tizzani.MCP.AzureDevOps.WorkItemTracking.Comments\Tizzani.MCP.AzureDevOps.WorkItemTracking.Comments.csproj", "{B983F5DA-88F9-4400-B516-1C2D70EEE9EE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tizzani.AzureDevOps.MCP", "Tizzani.AzureDevOps.MCP\Tizzani.AzureDevOps.MCP.csproj", "{B983F5DA-88F9-4400-B516-1C2D70EEE9EE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tizzani.MCP.AzureDevOps.WorkItemTracking.Comments.TestClient", "Tizzani.MCP.AzureDevOps.WorkItemTracking.Comments.TestClient\Tizzani.MCP.AzureDevOps.WorkItemTracking.Comments.TestClient.csproj", "{2AF62822-63D3-4BD5-BC25-A0AD7487104D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tizzani.AzureDevOps.MCP.TestClient", "Tizzani.AzureDevOps.MCP.TestClient\Tizzani.AzureDevOps.MCP.TestClient.csproj", "{2AF62822-63D3-4BD5-BC25-A0AD7487104D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

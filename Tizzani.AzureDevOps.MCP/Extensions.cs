@@ -1,7 +1,7 @@
 using Microsoft.Extensions.Configuration;
 using System.Text;
 
-namespace Tizzani.MCP.AzureDevOps.WorkItemTracking.Comments;
+namespace Tizzani.AzureDevOps.MCP;
 
 internal static class Extensions
 {

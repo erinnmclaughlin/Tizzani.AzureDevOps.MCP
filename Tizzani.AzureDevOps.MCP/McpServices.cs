@@ -4,7 +4,7 @@ using ModelContextProtocol.Server;
 using System.Net.Http.Json;
 using System.Text.Json;
 
-namespace Tizzani.MCP.AzureDevOps.WorkItemTracking.Comments;
+namespace Tizzani.AzureDevOps.MCP;
 
 // this is only necessary because [McpTool] can only be used on static methods (for now)
 
