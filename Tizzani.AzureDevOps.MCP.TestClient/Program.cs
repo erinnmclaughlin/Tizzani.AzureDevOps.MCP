@@ -4,7 +4,6 @@ using ModelContextProtocol.Configuration;
 using ModelContextProtocol.Protocol.Transport;
 using ModelContextProtocol.Protocol.Types;
 using System.Text.Json;
-using System.Text.Json.Nodes;
 
 var configuration = new ConfigurationBuilder()
     .AddCommandLine(args)
@@ -15,6 +14,7 @@ var configuration = new ConfigurationBuilder()
 var accessToken = configuration["AzureDevOps:AccessToken"];
 
 Console.WriteLine("Starting server...");
+
 var client = await McpClientFactory.CreateAsync(
     new McpServerConfig
     {
@@ -39,6 +39,8 @@ Console.WriteLine("Server started.");
 await foreach (var tool in client.ListToolsAsync())
 {
     Console.WriteLine($"{tool.Name} ({tool.Description})");
+    Console.WriteLine(tool.InputSchema);
+    Console.WriteLine();
 }
 
 var comments = await client.CallToolAsync("getComments", new Dictionary<string, object>
@@ -46,7 +48,4 @@ var comments = await client.CallToolAsync("getComments", new Dictionary<string, 
     ["workItemId"] = 21
 });
 
-var json = JsonSerializer.Deserialize<JsonObject>(comments.Content.FirstOrDefault()?.Text ?? "{}");
-var jsonString = json?.ToJsonString(new JsonSerializerOptions(JsonSerializerDefaults.Web) { WriteIndented = true });
-
-Console.WriteLine(jsonString);
+Console.WriteLine(JsonSerializer.SerializeToElement(comments.Content.FirstOrDefault()?.Text ?? "{}"));
