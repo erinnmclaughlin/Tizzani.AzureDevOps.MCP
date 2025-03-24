@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <UserSecretsId>c0db5a7d-288b-467b-98ab-e72022ad9bb1</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Tizzani.MCP.AzureDevOps.WorkItemTracking.Comments\Tizzani.MCP.AzureDevOps.WorkItemTracking.Comments.csproj" />
+  </ItemGroup>
+
+</Project>

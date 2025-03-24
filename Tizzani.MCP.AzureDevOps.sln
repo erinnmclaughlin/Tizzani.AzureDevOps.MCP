@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tizzani.MCP.AzureDevOps.WorkItemTracking.Comments", "Tizzani.MCP.AzureDevOps.WorkItemTracking.Comments\Tizzani.MCP.AzureDevOps.WorkItemTracking.Comments.csproj", "{B983F5DA-88F9-4400-B516-1C2D70EEE9EE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tizzani.MCP.AzureDevOps.WorkItemTracking.Comments.TestClient", "Tizzani.MCP.AzureDevOps.WorkItemTracking.Comments.TestClient\Tizzani.MCP.AzureDevOps.WorkItemTracking.Comments.TestClient.csproj", "{2AF62822-63D3-4BD5-BC25-A0AD7487104D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B983F5DA-88F9-4400-B516-1C2D70EEE9EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B983F5DA-88F9-4400-B516-1C2D70EEE9EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B983F5DA-88F9-4400-B516-1C2D70EEE9EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B983F5DA-88F9-4400-B516-1C2D70EEE9EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2AF62822-63D3-4BD5-BC25-A0AD7487104D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2AF62822-63D3-4BD5-BC25-A0AD7487104D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2AF62822-63D3-4BD5-BC25-A0AD7487104D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2AF62822-63D3-4BD5-BC25-A0AD7487104D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
