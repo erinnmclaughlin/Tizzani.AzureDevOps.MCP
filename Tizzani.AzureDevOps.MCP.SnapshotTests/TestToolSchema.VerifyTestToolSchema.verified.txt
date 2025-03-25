@@ -298,7 +298,7 @@
         "description": "Version string identifier (name of tag/branch, SHA1 of commit)"
       },
       "baseVersionType": {
-        "type": null,
+        "type": "string",
         "description": "Version type (branch, tag, or commit). Determines how Id is interpreted"
       },
       "targetVersion": {
@@ -306,7 +306,7 @@
         "description": "Version string identifier (name of tag/branch, SHA1 of commit)"
       },
       "targetVersionType": {
-        "type": null,
+        "type": "string",
         "description": "Version type (branch, tag, or commit). Determines how Id is interpreted"
       }
     },
@@ -440,7 +440,7 @@
         "description": "(Optional) If set, search for pull requests whose target branch is in this repository."
       },
       "pullRequestStatus": {
-        "type": null,
+        "type": "string",
         "description": "(Optional) If set, search for pull requests that are in this state. Defaults to Active if unset."
       },
       "title": {

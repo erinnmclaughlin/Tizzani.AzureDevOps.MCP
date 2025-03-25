@@ -44,11 +44,28 @@ public static class CustomMcpServerBuilder
                         }
                         else if (node.GetValueKind() == JsonValueKind.Object)
                         {
-                            var typeObj = node.AsObject().TryGetPropertyValue("type", out var t) ? t : null;
+                            var obj = node.AsObject();
 
-                            type = typeObj?.GetValueKind() == JsonValueKind.Array
-                                ? typeObj.AsArray().First()?.GetValue<string>()
-                                : typeObj?.GetValue<string>();
+                            if (obj.TryGetPropertyValue("type", out var t) && t != null)
+                            {
+                                if (t.GetValueKind() == JsonValueKind.Array)
+                                {
+                                    type = t.AsArray().First()?.GetValue<string>();
+                                }
+                                else
+                                {
+                                    type = t.GetValue<string>();
+                                }
+                                
+                            }
+                            else if (obj.TryGetPropertyValue("enum", out var enumObj))
+                            {
+                                type = "string";
+                            }
+                            else
+                            {
+                                throw new Exception("Could not determine parameter type for node.");
+                            }
                         }
                         else
                         {

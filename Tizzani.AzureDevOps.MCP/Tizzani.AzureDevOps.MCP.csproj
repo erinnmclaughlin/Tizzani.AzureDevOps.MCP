@@ -6,7 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <Nullable>enable</Nullable>
-    <Version>1.0.0-preview.20250325.1</Version>
+    <Version>1.0.0-preview.20250325.2</Version>
     <Title>Tizzani.AzureDevOps.MCP</Title>
     <Authors>erinnmclaughlin</Authors>
     <Description>A collection of MCP tools for querying the Azure DevOps API.</Description>
