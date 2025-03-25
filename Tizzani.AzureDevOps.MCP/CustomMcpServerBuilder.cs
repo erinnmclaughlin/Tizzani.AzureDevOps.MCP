@@ -1,16 +1,10 @@
 using Microsoft.Extensions.DependencyInjection;
-using ModelContextProtocol;
 using ModelContextProtocol.Configuration;
 using ModelContextProtocol.Protocol.Types;
-using ModelContextProtocol.Server;
-using System.ComponentModel;
 using System.Reflection;
-using System.Text.Json;
 using System.Text.Json.Schema;
 
 namespace Tizzani.AzureDevOps.MCP;
-
-// temporary until this is built into the MCP library
 
 public static class CustomMcpServerBuilder
 {
@@ -18,7 +12,7 @@ public static class CustomMcpServerBuilder
     {
         return serviceCollection.AddMcpServer(o =>
         {
-            o.ServerInfo = new Implementation { Name = "AzureDevOpsMCP", Version = "1.0.0" };
+            o.ServerInfo = new Implementation { Name = "tizzani-adomcp", Version = "1.0.0" };
             o.Capabilities = new ServerCapabilities
             {
                 Tools = AddMcpTools()
@@ -26,6 +20,7 @@ public static class CustomMcpServerBuilder
         });
     }
 
+    // temporary until this is built into the MCP library:
     public static Tool BuildTool(MethodInfo m, IServiceProvider sp)
     {
         return new Tool
@@ -35,6 +30,7 @@ public static class CustomMcpServerBuilder
             InputSchema = JsonSerializer.SerializeToElement(new
             {
                 type = "object",
+                // ugly but very temporary:
                 properties = m.GetParameters()
                     .Where(p => p.ParameterType != typeof(CancellationToken) && sp.GetService(p.ParameterType) == null)
                     .ToDictionary(p => p.Name!, p =>

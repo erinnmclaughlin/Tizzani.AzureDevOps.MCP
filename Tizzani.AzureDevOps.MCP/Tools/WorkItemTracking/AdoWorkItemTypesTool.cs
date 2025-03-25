@@ -1,12 +1,7 @@
-using ModelContextProtocol.Server;
-using System.ComponentModel;
-using System.Net.Http.Json;
-using System.Text.Json;
-
-namespace Tizzani.AzureDevOps.MCP.Tools;
+namespace Tizzani.AzureDevOps.MCP.Tools.WorkItemTracking;
 
 [McpToolType]
-public sealed class AdoWorkItemTypesTool
+public static class AdoWorkItemTypesTool
 {
     private const string ApiVersion = "7.2-preview.2";
     

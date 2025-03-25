@@ -2,8 +2,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using ModelContextProtocol;
-using ModelContextProtocol.Protocol.Types;
 using System.Net.Http.Headers;
 using Tizzani.AzureDevOps.MCP;
 
@@ -23,13 +21,6 @@ builder.Services.AddScoped(sp =>
     return httpClient;
 });
 
-builder.Services.AddMcpServer(o =>
-{
-    o.ServerInfo = new Implementation { Name = "tizzani-adomcp", Version = "1.0.0" };
-    o.Capabilities = new ServerCapabilities
-    {
-        Tools = CustomMcpServerBuilder.AddMcpTools()
-    };
-}).WithStdioServerTransport();
+builder.Services.AddMcpServerWithTools().WithStdioServerTransport();
 
 await builder.Build().RunAsync();
