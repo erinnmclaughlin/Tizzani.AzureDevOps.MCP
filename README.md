@@ -1,14 +1,9 @@
-<div align="center">
-    <h3><b>Azure DevOps MCP Server</b></h3>
-    <p>An MCP Server for integrating with Azure DevOps REST API.</p>
-    <div>
-        <img alt="Nuget version" src="https://img.shields.io/nuget/v/tizzani.azuredevops.mcp">
-        <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/erinnmclaughlin/tizzani.azuredevops.mcp/main">
-        <!--<img alt="GitHub Workflow Status (with event)" src="https://img.shields.io/github/actions/workflow/status/erinnmclaughlin/Tizzani.QueryStringSerializer/dotnet.yml">-->
-    </div>
-</div>
+# Azure DevOps MCP Server
+An MCP Server for integrating with Azure DevOps REST API.
 
-<hr />
+[![Nuget version](https://img.shields.io/nuget/v/tizzani.azuredevops.mcp)](https://www.nuget.org/packages/Tizzani.AzureDevOps.MCP)
+
+---
 
 ## Installation
 Download the tool from [NuGet](https://www.nuget.org/packages/Tizzani.AzureDevOps.MCP).
