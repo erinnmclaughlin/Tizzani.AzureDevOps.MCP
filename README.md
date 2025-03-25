@@ -13,7 +13,7 @@
 ## Installation
 Download the tool from [NuGet](https://www.nuget.org/packages/Tizzani.AzureDevOps.MCP).
 ```sh
-dotnet tool install --global Tizzani.AzureDevOps.MCP --version 1.0.0-preview.20250324.2
+dotnet tool install --global Tizzani.AzureDevOps.MCP --version 1.0.0-preview.20250325.1
 ```
 
 ## IDE Integration
