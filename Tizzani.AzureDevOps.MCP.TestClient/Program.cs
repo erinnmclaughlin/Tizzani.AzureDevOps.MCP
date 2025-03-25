@@ -12,6 +12,7 @@ var configuration = new ConfigurationBuilder()
     .Build();
 
 var accessToken = configuration["AzureDevOps:AccessToken"];
+Console.WriteLine(accessToken);
 
 Console.WriteLine("Starting server...");
 

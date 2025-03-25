@@ -5,8 +5,32 @@
     <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <Version>1.0.0-preview.20250324.1</Version>
+    <Title>Tizzani.AzureDevOps.MCP</Title>
+    <Authors>erinnmclaughlin</Authors>
+    <Description>A collection of MCP tools for querying the Azure DevOps API.</Description>
+    <Copyright>2025</Copyright>
+    <PackageProjectUrl>https://github.com/erinnmclaughlin/Tizzani.AzureDevOps.MCP/tree/main</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/erinnmclaughlin/Tizzani.AzureDevOps.MCP/tree/main</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>AzureDevOps,MCP,ADO</PackageTags>
+    <PackAsTool>true</PackAsTool>
+    <ToolCommandName>tizzani.adomcp</ToolCommandName>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+  
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.3" />
     <PackageReference Include="Microsoft.Extensions.Configuration.CommandLine" Version="9.0.3" />
