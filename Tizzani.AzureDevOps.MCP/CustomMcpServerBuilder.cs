@@ -60,6 +60,7 @@ public static class CustomMcpServerBuilder
                                 }),
                             required = m.GetParameters()
                                 .Where(p => p.ParameterType != typeof(CancellationToken) && sp.GetService(p.ParameterType) == null)
+                                .Where(p => !p.HasDefaultValue)
                                 .Select(p => p.Name)
                                 .ToArray()
                         })
@@ -67,12 +68,12 @@ public static class CustomMcpServerBuilder
                     .ToList()
                 });
             },
-            CallToolHandler = (request, ct) =>
+            CallToolHandler = async (request, ct) =>
             {
                 var toolName = request.Params?.Name!;
 
                 var method = methods.First(x => x.Name == toolName || x.GetCustomAttribute<McpToolAttribute>()?.Name == toolName);
-                var parameters = new List<object>();
+                var parameters = new List<object?>();
 
                 using var scope = request.Server.ServiceProvider!.CreateScope();
 
@@ -95,6 +96,12 @@ public static class CustomMcpServerBuilder
 
                     if (parameter == null)
                     {
+                        if (parameterInfo.HasDefaultValue)
+                        {
+                            parameters.Add(parameterInfo.DefaultValue);
+                            continue;
+                        }
+                        
                         throw new Exception($"Unable to resolve argument '{parameterInfo.Name}' of type {parameterInfo.ParameterType.Name}");
                     }
 
@@ -102,9 +109,9 @@ public static class CustomMcpServerBuilder
                 }
 
                 dynamic task = method.Invoke(null, parameters.ToArray())!;
-                var result = task.GetAwaiter().GetResult();
+                var result = await task;
 
-                return Task.FromResult(new CallToolResponse { Content = [new Content { Text = result?.ToString(), Type = "text" }] });
+                return new CallToolResponse { Content = [new Content { Text = result?.ToString(), Type = "text" }] };
             }
         };
     }

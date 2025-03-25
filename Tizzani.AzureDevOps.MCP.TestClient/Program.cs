@@ -5,6 +5,8 @@ using ModelContextProtocol.Protocol.Transport;
 using ModelContextProtocol.Protocol.Types;
 using System.Text.Json;
 
+// This is a scratch pad for testing the MCP client. Will likely be removed soon.
+
 var configuration = new ConfigurationBuilder()
     .AddCommandLine(args)
     .AddEnvironmentVariables()
@@ -43,9 +45,17 @@ await foreach (var tool in client.ListToolsAsync())
     Console.WriteLine();
 }
 
-var comments = await client.CallToolAsync("getComments", new Dictionary<string, object>
+//var result = await client.CallToolAsync("getTags", new Dictionary<string, object>());
+
+//var result = await client.CallToolAsync("queryByWiql", new Dictionary<string, object>
+//{
+//    ["query"] = "Select [System.Id], [System.Title], [System.State] From WorkItems Where [System.WorkItemType] = 'Task' AND [State] <> 'Closed' AND [State] <> 'Removed' order by [Microsoft.VSTS.Common.Priority] asc, [System.CreatedDate] desc"
+//});
+
+var result = await client.CallToolAsync("getWorkItem", new Dictionary<string, object>
 {
-    ["workItemId"] = 21
+    ["workItemId"] = 21,
+    ["fields"] = new[] { "System.Id", "System.Title", "System.State" }
 });
 
-Console.WriteLine(JsonSerializer.SerializeToElement(comments.Content.FirstOrDefault()?.Text ?? "{}"));
+Console.WriteLine(JsonSerializer.SerializeToElement(result.Content.FirstOrDefault()?.Text ?? "{}"));

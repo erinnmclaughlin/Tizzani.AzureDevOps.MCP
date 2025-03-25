@@ -3,12 +3,13 @@ using System.ComponentModel;
 using System.Net.Http.Json;
 using System.Text.Json;
 
-namespace Tizzani.AzureDevOps.MCP.WorkItemTracking;
+namespace Tizzani.AzureDevOps.MCP.Tools;
 
 [McpToolType]
-public sealed class WorkItemCommentsTool
+public sealed class AdoCommentsTool
 {
-    private const string DefaultApiVersion = "7.2-preview.4";
+    private const string ApiBaseAddress = "_apis/wit/workItems";
+    private const string ApiVersion = "7.2-preview.4";
     
     [McpTool("getComments")]
     [Description("Gets a list of comments for a specific work item.")]
@@ -17,7 +18,7 @@ public sealed class WorkItemCommentsTool
         [Description("The work item ID to get comments for.")] int workItemId, 
         CancellationToken ct = default)
     {
-        return await httpClient.GetFromJsonAsync<JsonElement>($"{workItemId}/comments?api-version={DefaultApiVersion}", ct);
+        return await httpClient.GetFromJsonAsync<JsonElement>($"{ApiBaseAddress}/{workItemId}/comments?api-version={ApiVersion}", ct);
     }
     
     [McpTool("addComment")]
@@ -28,7 +29,7 @@ public sealed class WorkItemCommentsTool
         [Description("The text of the comment to add.")] string text, 
         CancellationToken ct = default)
     {
-        var requestUri = $"{workItemId}/comments?api-version={DefaultApiVersion}";
+        var requestUri = $"{ApiBaseAddress}/{workItemId}/comments?api-version={ApiVersion}";
         
         var response = await httpClient.PostAsJsonAsync(requestUri, new { text }, ct);
         response.EnsureSuccessStatusCode();
