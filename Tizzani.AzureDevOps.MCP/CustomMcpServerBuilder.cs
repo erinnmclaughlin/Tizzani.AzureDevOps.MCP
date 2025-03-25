@@ -1,7 +1,9 @@
 using Microsoft.Extensions.DependencyInjection;
 using ModelContextProtocol.Configuration;
 using ModelContextProtocol.Protocol.Types;
+using System.Diagnostics;
 using System.Reflection;
+using System.Text.Json.Nodes;
 using System.Text.Json.Schema;
 
 namespace Tizzani.AzureDevOps.MCP;
@@ -23,6 +25,32 @@ public static class CustomMcpServerBuilder
     // temporary until this is built into the MCP library:
     public static Tool BuildTool(MethodInfo m, IServiceProvider sp)
     {
+        var properties = new Dictionary<string, object?>();
+        var required = new HashSet<string>();
+        
+        var parameters = m.GetParameters()
+            .Where(p => p.ParameterType != typeof(CancellationToken) && sp.GetService(p.ParameterType) == null);
+
+        foreach (var p in parameters)
+        {
+            if (string.IsNullOrWhiteSpace(p.Name))
+                throw new Exception("All MCP tool method parameters must have a name.");
+            
+            var propName = p.Name.ToCamelCase();
+            var description = p.GetCustomAttribute<DescriptionAttribute>()?.Description;
+                
+            properties[propName] = JsonSerializerOptions.Web.GetJsonSchemaAsNode(p.ParameterType, new JsonSchemaExporterOptions
+            {
+                TreatNullObliviousAsNonNullable = true,
+                TransformSchemaNode = (context, schema) => TransformSchemaNode(context, schema, description)
+            });
+
+            if (!p.HasDefaultValue)
+            {
+                required.Add(propName);
+            }
+        }
+        
         return new Tool
         {
             Name = m.GetCustomAttribute<McpToolAttribute>()?.Name ?? m.Name,
@@ -31,58 +59,8 @@ public static class CustomMcpServerBuilder
             {
                 type = "object",
                 // ugly but very temporary:
-                properties = m.GetParameters()
-                    .Where(p => p.ParameterType != typeof(CancellationToken) && sp.GetService(p.ParameterType) == null)
-                    .ToDictionary(p => p.Name!, p =>
-                    {
-                        var node = JsonSerializerOptions.Default.GetJsonSchemaAsNode(p.ParameterType);
-                        string? type;
-
-                        if (node.GetValueKind() == JsonValueKind.String)
-                        {
-                            type = node.GetValue<string>();
-                        }
-                        else if (node.GetValueKind() == JsonValueKind.Object)
-                        {
-                            var obj = node.AsObject();
-
-                            if (obj.TryGetPropertyValue("type", out var t) && t != null)
-                            {
-                                if (t.GetValueKind() == JsonValueKind.Array)
-                                {
-                                    type = t.AsArray().First()?.GetValue<string>();
-                                }
-                                else
-                                {
-                                    type = t.GetValue<string>();
-                                }
-                                
-                            }
-                            else if (obj.TryGetPropertyValue("enum", out var enumObj))
-                            {
-                                type = "string";
-                            }
-                            else
-                            {
-                                throw new Exception("Could not determine parameter type for node.");
-                            }
-                        }
-                        else
-                        {
-                            type = node.GetValue<string>();
-                        }
-                        
-                        return new
-                        {
-                            type,
-                            description = p.GetCustomAttribute<DescriptionAttribute>()?.Description
-                        };
-                    }),
-                required = m.GetParameters()
-                    .Where(p => p.ParameterType != typeof(CancellationToken) && sp.GetService(p.ParameterType) == null)
-                    .Where(p => !p.HasDefaultValue)
-                    .Select(p => p.Name)
-                    .ToArray()
+                properties,
+                required
             })
         };
     }
@@ -152,5 +130,43 @@ public static class CustomMcpServerBuilder
                 return new CallToolResponse { Content = [new Content { Text = result?.ToString(), Type = "text" }] };
             }
         };
+    }
+
+    private static JsonNode TransformSchemaNode(JsonSchemaExporterContext _, JsonNode schema, string? description)
+    {
+        if (schema is not JsonObject jObj)
+        {
+            // Handle the case where the schema is a Boolean.
+            var valueKind = schema.GetValueKind();
+            Debug.Assert(valueKind is JsonValueKind.True or JsonValueKind.False);
+            schema = jObj = new JsonObject();
+            if (valueKind is JsonValueKind.False)
+            {
+                jObj.Add("not", true);
+            }
+        }
+
+        if (description != null)
+        {
+            foreach (var (_, childNode) in jObj)
+            {
+                if (childNode is null || childNode.GetValueKind() != JsonValueKind.Object)
+                    continue;
+                                    
+                var childObj = childNode.AsObject();
+
+                if (childObj.TryGetPropertyValue("description", out var d))
+                {
+                    if (d?.GetValue<string>() == description)
+                    {
+                        childObj.Remove("description");
+                    }
+                }
+            }
+                                
+            jObj.Add("description", description);
+        }
+
+        return schema;
     }
 }

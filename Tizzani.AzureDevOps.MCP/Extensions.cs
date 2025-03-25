@@ -6,6 +6,20 @@ namespace Tizzani.AzureDevOps.MCP;
 
 internal static class Extensions
 {
+    public static string ToCamelCase(this string input)
+    {
+        if (string.IsNullOrWhiteSpace(input) || char.IsLower(input[0]))
+            return input;
+
+        var span = input.AsSpan();
+        
+        return string.Create(span.Length, span, (chars, state) =>
+        {
+            chars[0] = char.ToLowerInvariant(state[0]);
+            state[1..].CopyTo(chars[1..]);
+        });
+    }
+    
     public static string ToBase64EncodedString(this string text)
     {
         return Convert.ToBase64String(Encoding.ASCII.GetBytes(text));

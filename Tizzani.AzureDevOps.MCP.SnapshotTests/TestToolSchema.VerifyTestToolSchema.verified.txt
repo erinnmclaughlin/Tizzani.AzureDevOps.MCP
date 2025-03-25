@@ -6,7 +6,11 @@
     "type": "object",
     "properties": {
       "workItemId": {
-        "type": "integer",
+        "type": [
+          "string",
+          "integer"
+        ],
+        "pattern": "^-?(?:0|[1-9]\\d*)$",
         "description": "The work item ID to get comments for."
       }
     },
@@ -23,7 +27,11 @@
     "type": "object",
     "properties": {
       "workItemId": {
-        "type": "integer",
+        "type": [
+          "string",
+          "integer"
+        ],
+        "pattern": "^-?(?:0|[1-9]\\d*)$",
         "description": "The ID of the work item to add a comment to."
       },
       "text": {
@@ -73,10 +81,20 @@
     "properties": {
       "workItemIds": {
         "type": "array",
+        "items": {
+          "type": [
+            "string",
+            "integer"
+          ],
+          "pattern": "^-?(?:0|[1-9]\\d*)$"
+        },
         "description": "The work item IDs."
       },
       "fields": {
         "type": "array",
+        "items": {
+          "type": "string"
+        },
         "description": "The fields to return in the results. If not included, all fields will be returned."
       }
     },
@@ -93,11 +111,18 @@
     "type": "object",
     "properties": {
       "workItemId": {
-        "type": "integer",
+        "type": [
+          "string",
+          "integer"
+        ],
+        "pattern": "^-?(?:0|[1-9]\\d*)$",
         "description": "The work item ID."
       },
       "fields": {
         "type": "array",
+        "items": {
+          "type": "string"
+        },
         "description": "The fields to return in the results. If not included, all fields will be returned."
       }
     },
@@ -298,7 +323,11 @@
         "description": "Version string identifier (name of tag/branch, SHA1 of commit)"
       },
       "baseVersionType": {
-        "type": "string",
+        "enum": [
+          "branch",
+          "commit",
+          "tag"
+        ],
         "description": "Version type (branch, tag, or commit). Determines how Id is interpreted"
       },
       "targetVersion": {
@@ -306,7 +335,11 @@
         "description": "Version string identifier (name of tag/branch, SHA1 of commit)"
       },
       "targetVersionType": {
-        "type": "string",
+        "enum": [
+          "branch",
+          "commit",
+          "tag"
+        ],
         "description": "Version type (branch, tag, or commit). Determines how Id is interpreted"
       }
     },
@@ -331,7 +364,11 @@
         "description": "The ID or name of the repository."
       },
       "pullRequestId": {
-        "type": "integer",
+        "type": [
+          "string",
+          "integer"
+        ],
+        "pattern": "^-?(?:0|[1-9]\\d*)$",
         "description": "The pull request ID to get commits for."
       }
     },
@@ -353,7 +390,11 @@
         "description": "The ID or name of the repository."
       },
       "pullRequestId": {
-        "type": "integer",
+        "type": [
+          "string",
+          "integer"
+        ],
+        "pattern": "^-?(?:0|[1-9]\\d*)$",
         "description": "The pull request ID to get commits for."
       }
     },
@@ -375,7 +416,11 @@
         "description": "The ID or name of the repository."
       },
       "pullRequestId": {
-        "type": "integer",
+        "type": [
+          "string",
+          "integer"
+        ],
+        "pattern": "^-?(?:0|[1-9]\\d*)$",
         "description": "The pull request ID to get iterations for."
       }
     },
@@ -397,11 +442,19 @@
         "description": "The ID or name of the repository."
       },
       "pullRequestId": {
-        "type": "integer",
+        "type": [
+          "string",
+          "integer"
+        ],
+        "pattern": "^-?(?:0|[1-9]\\d*)$",
         "description": "The pull request ID to get iterations for."
       },
       "iterationId": {
-        "type": "integer",
+        "type": [
+          "string",
+          "integer"
+        ],
+        "pattern": "^-?(?:0|[1-9]\\d*)$",
         "description": "The iteration ID to get."
       }
     },
@@ -420,11 +473,19 @@
     "type": "object",
     "properties": {
       "skip": {
-        "type": "integer",
+        "type": [
+          "string",
+          "integer"
+        ],
+        "pattern": "^-?(?:0|[1-9]\\d*)$",
         "description": "(Optional) The number of pull requests to ignore. For example, to retrieve results 101-150, set top to 50 and skip to 100."
       },
       "top": {
-        "type": "integer",
+        "type": [
+          "string",
+          "integer"
+        ],
+        "pattern": "^-?(?:0|[1-9]\\d*)$",
         "description": "(Optional) The number of pull requests to retrieve."
       },
       "creatorId": {
@@ -440,7 +501,13 @@
         "description": "(Optional) If set, search for pull requests whose target branch is in this repository."
       },
       "pullRequestStatus": {
-        "type": "string",
+        "enum": [
+          "abandoned",
+          "active",
+          "all",
+          "completed",
+          null
+        ],
         "description": "(Optional) If set, search for pull requests that are in this state. Defaults to Active if unset."
       },
       "title": {
@@ -459,7 +526,11 @@
     "type": "object",
     "properties": {
       "pullRequestId": {
-        "type": "integer",
+        "type": [
+          "string",
+          "integer"
+        ],
+        "pattern": "^-?(?:0|[1-9]\\d*)$",
         "description": "The ID of the pull request to retrieve."
       }
     },
@@ -480,7 +551,11 @@
         "description": "The ID of the repository to retrieve threads for."
       },
       "pullRequestId": {
-        "type": "integer",
+        "type": [
+          "string",
+          "integer"
+        ],
+        "pattern": "^-?(?:0|[1-9]\\d*)$",
         "description": "The ID of the pull request to retrieve threads for."
       }
     },
@@ -502,7 +577,11 @@
         "description": "The ID or name of the repository to create a thread on."
       },
       "pullRequestId": {
-        "type": "integer",
+        "type": [
+          "string",
+          "integer"
+        ],
+        "pattern": "^-?(?:0|[1-9]\\d*)$",
         "description": "The ID of the pull request to create a thread on."
       },
       "content": {
@@ -529,7 +608,11 @@
         "description": "The ID or name of the repository to create a thread on."
       },
       "pullRequestId": {
-        "type": "integer",
+        "type": [
+          "string",
+          "integer"
+        ],
+        "pattern": "^-?(?:0|[1-9]\\d*)$",
         "description": "The ID of the pull request to create a thread on."
       },
       "content": {
@@ -541,35 +624,67 @@
         "description": "The path of the file to comment on."
       },
       "leftFileEndLine": {
-        "type": "integer",
+        "type": [
+          "string",
+          "integer"
+        ],
+        "pattern": "^-?(?:0|[1-9]\\d*)$",
         "description": "Position of last character of the thread\u0027s span in left file."
       },
       "leftFileEndOffset": {
-        "type": "integer",
+        "type": [
+          "string",
+          "integer"
+        ],
+        "pattern": "^-?(?:0|[1-9]\\d*)$",
         "description": "Position of last character of the thread\u0027s span in left file."
       },
       "leftFileStartLine": {
-        "type": "integer",
+        "type": [
+          "string",
+          "integer"
+        ],
+        "pattern": "^-?(?:0|[1-9]\\d*)$",
         "description": "Position of first character of the thread\u0027s span in left file."
       },
       "leftFileStartOffset": {
-        "type": "integer",
+        "type": [
+          "string",
+          "integer"
+        ],
+        "pattern": "^-?(?:0|[1-9]\\d*)$",
         "description": "Position of first character of the thread\u0027s span in left file."
       },
       "rightFileEndLine": {
-        "type": "integer",
+        "type": [
+          "string",
+          "integer"
+        ],
+        "pattern": "^-?(?:0|[1-9]\\d*)$",
         "description": "Position of last character of the thread\u0027s span in right file."
       },
       "rightFileEndOffset": {
-        "type": "integer",
+        "type": [
+          "string",
+          "integer"
+        ],
+        "pattern": "^-?(?:0|[1-9]\\d*)$",
         "description": "Position of last character of the thread\u0027s span in right file."
       },
       "rightFileStartLine": {
-        "type": "integer",
+        "type": [
+          "string",
+          "integer"
+        ],
+        "pattern": "^-?(?:0|[1-9]\\d*)$",
         "description": "Position of first character of the thread\u0027s span in right file."
       },
       "rightFileStartOffset": {
-        "type": "integer",
+        "type": [
+          "string",
+          "integer"
+        ],
+        "pattern": "^-?(?:0|[1-9]\\d*)$",
         "description": "Position of first character of the thread\u0027s span in right file."
       }
     },
