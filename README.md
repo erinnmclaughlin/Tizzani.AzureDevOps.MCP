@@ -1,6 +1,6 @@
 <div align="center">
     <h3><b>Azure DevOps MCP Server</b></h3>
-    <p>An MCP Server for querying with Azure DevOps REST API.</p>
+    <p>An MCP Server for integrating with Azure DevOps REST API.</p>
     <div>
         <img alt="Nuget version" src="https://img.shields.io/nuget/v/tizzani.azuredevops.mcp">
         <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/erinnmclaughlin/tizzani.azuredevops.mcp/main">
@@ -17,7 +17,6 @@ dotnet tool install --global Tizzani.AzureDevOps.MCP --version 1.0.0-preview.202
 ```
 
 ## IDE Integration
-For Cursor or Claude, add the `tizzani.adomcp` command with the required arguments.
 ```json
 "mcpServers": {
   "mcp-azuredevops": {
