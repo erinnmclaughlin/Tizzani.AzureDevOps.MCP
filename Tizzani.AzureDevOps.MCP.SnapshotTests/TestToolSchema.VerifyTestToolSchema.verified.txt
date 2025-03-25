@@ -95,6 +95,10 @@
       "workItemId": {
         "type": "integer",
         "description": "The work item ID."
+      },
+      "fields": {
+        "type": "array",
+        "description": "The fields to return in the results. If not included, all fields will be returned."
       }
     },
     "required": [
@@ -210,6 +214,381 @@
     "required": [
       "workItemType"
     ]
+  }
+}
+  
+{
+  "name": "getBlob",
+  "description": "Gets the file contents of a specific blob.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "repositoryId": {
+        "type": "string",
+        "description": "The ID or name of the repository."
+      },
+      "sha1": {
+        "type": "string",
+        "description": "SHA1 hash of the file. You can get the SHA1 of a file using the \u0022Git/Items/Get Item\u0022 endpoint."
+      }
+    },
+    "required": [
+      "repositoryId",
+      "sha1"
+    ]
+  }
+}
+  
+{
+  "name": "getCommit",
+  "description": "Gets a specific commit.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "repositoryId": {
+        "type": "string",
+        "description": "The ID or name of the repository."
+      },
+      "commitId": {
+        "type": "string",
+        "description": "The commit ID to get."
+      }
+    },
+    "required": [
+      "repositoryId",
+      "commitId"
+    ]
+  }
+}
+  
+{
+  "name": "getCommitChanges",
+  "description": "Retrieve changes for a particular commit.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "repositoryId": {
+        "type": "string",
+        "description": "The ID or name of the repository."
+      },
+      "commitId": {
+        "type": "string",
+        "description": "The commit ID to get."
+      }
+    },
+    "required": [
+      "repositoryId",
+      "commitId"
+    ]
+  }
+}
+  
+{
+  "name": "getDiffs",
+  "description": "Gets a list of diffs between two branches.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "repositoryId": {
+        "type": "string",
+        "description": "The ID or name of the repository."
+      },
+      "baseVersion": {
+        "type": "string",
+        "description": "Version string identifier (name of tag/branch, SHA1 of commit)"
+      },
+      "baseVersionType": {
+        "type": null,
+        "description": "Version type (branch, tag, or commit). Determines how Id is interpreted"
+      },
+      "targetVersion": {
+        "type": "string",
+        "description": "Version string identifier (name of tag/branch, SHA1 of commit)"
+      },
+      "targetVersionType": {
+        "type": null,
+        "description": "Version type (branch, tag, or commit). Determines how Id is interpreted"
+      }
+    },
+    "required": [
+      "repositoryId",
+      "baseVersion",
+      "baseVersionType",
+      "targetVersion",
+      "targetVersionType"
+    ]
+  }
+}
+  
+{
+  "name": "getPullRequestCommits",
+  "description": "Gets a list of commits for a specific pull request.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "repositoryId": {
+        "type": "string",
+        "description": "The ID or name of the repository."
+      },
+      "pullRequestId": {
+        "type": "integer",
+        "description": "The pull request ID to get commits for."
+      }
+    },
+    "required": [
+      "repositoryId",
+      "pullRequestId"
+    ]
+  }
+}
+  
+{
+  "name": "getPullRequestCommit",
+  "description": "Gets a list of commits for a specific pull request.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "repositoryId": {
+        "type": "string",
+        "description": "The ID or name of the repository."
+      },
+      "pullRequestId": {
+        "type": "integer",
+        "description": "The pull request ID to get commits for."
+      }
+    },
+    "required": [
+      "repositoryId",
+      "pullRequestId"
+    ]
+  }
+}
+  
+{
+  "name": "getPullRequestIterations",
+  "description": "Gets a list of iterations for a specific pull request.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "repositoryId": {
+        "type": "string",
+        "description": "The ID or name of the repository."
+      },
+      "pullRequestId": {
+        "type": "integer",
+        "description": "The pull request ID to get iterations for."
+      }
+    },
+    "required": [
+      "repositoryId",
+      "pullRequestId"
+    ]
+  }
+}
+  
+{
+  "name": "getPullRequestIteration",
+  "description": "Gets a specific iteration for a specific pull request.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "repositoryId": {
+        "type": "string",
+        "description": "The ID or name of the repository."
+      },
+      "pullRequestId": {
+        "type": "integer",
+        "description": "The pull request ID to get iterations for."
+      },
+      "iterationId": {
+        "type": "integer",
+        "description": "The iteration ID to get."
+      }
+    },
+    "required": [
+      "repositoryId",
+      "pullRequestId",
+      "iterationId"
+    ]
+  }
+}
+  
+{
+  "name": "getPullRequests",
+  "description": "Retrieve all pull requests matching a specified criteria. Please note that description field will be truncated up to 400 symbols in the result.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "skip": {
+        "type": "integer",
+        "description": "(Optional) The number of pull requests to ignore. For example, to retrieve results 101-150, set top to 50 and skip to 100."
+      },
+      "top": {
+        "type": "integer",
+        "description": "(Optional) The number of pull requests to retrieve."
+      },
+      "creatorId": {
+        "type": "string",
+        "description": "(Optional) If set, search for pull requests that were created by this identity."
+      },
+      "includeLinks": {
+        "type": "boolean",
+        "description": "(Optional) Whether to include the _links field on the shallow references."
+      },
+      "repositoryId": {
+        "type": "string",
+        "description": "(Optional) If set, search for pull requests whose target branch is in this repository."
+      },
+      "pullRequestStatus": {
+        "type": null,
+        "description": "(Optional) If set, search for pull requests that are in this state. Defaults to Active if unset."
+      },
+      "title": {
+        "type": "string",
+        "description": "(Optional) If set, filters pull requests that contain the specified text in the title."
+      }
+    },
+    "required": []
+  }
+}
+  
+{
+  "name": "getPullRequestById",
+  "description": null,
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "pullRequestId": {
+        "type": "integer",
+        "description": "The ID of the pull request to retrieve."
+      }
+    },
+    "required": [
+      "pullRequestId"
+    ]
+  }
+}
+  
+{
+  "name": "getPullRequestThreads",
+  "description": "Retrieve all threads for a specified pull request.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "repositoryId": {
+        "type": "string",
+        "description": "The ID of the repository to retrieve threads for."
+      },
+      "pullRequestId": {
+        "type": "integer",
+        "description": "The ID of the pull request to retrieve threads for."
+      }
+    },
+    "required": [
+      "repositoryId",
+      "pullRequestId"
+    ]
+  }
+}
+  
+{
+  "name": "createPullRequestThread",
+  "description": "Creates a new thread on the pull request.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "repositoryId": {
+        "type": "string",
+        "description": "The ID or name of the repository to create a thread on."
+      },
+      "pullRequestId": {
+        "type": "integer",
+        "description": "The ID of the pull request to create a thread on."
+      },
+      "content": {
+        "type": "string",
+        "description": "The comment content."
+      }
+    },
+    "required": [
+      "repositoryId",
+      "pullRequestId",
+      "content"
+    ]
+  }
+}
+  
+{
+  "name": "createPullRequestThreadForFile",
+  "description": "Creates a new comment on the pull request for a specific file.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "repositoryId": {
+        "type": "string",
+        "description": "The ID or name of the repository to create a thread on."
+      },
+      "pullRequestId": {
+        "type": "integer",
+        "description": "The ID of the pull request to create a thread on."
+      },
+      "content": {
+        "type": "string",
+        "description": "The comment content."
+      },
+      "filePath": {
+        "type": "string",
+        "description": "The path of the file to comment on."
+      },
+      "leftFileEndLine": {
+        "type": "integer",
+        "description": "Position of last character of the thread\u0027s span in left file."
+      },
+      "leftFileEndOffset": {
+        "type": "integer",
+        "description": "Position of last character of the thread\u0027s span in left file."
+      },
+      "leftFileStartLine": {
+        "type": "integer",
+        "description": "Position of first character of the thread\u0027s span in left file."
+      },
+      "leftFileStartOffset": {
+        "type": "integer",
+        "description": "Position of first character of the thread\u0027s span in left file."
+      },
+      "rightFileEndLine": {
+        "type": "integer",
+        "description": "Position of last character of the thread\u0027s span in right file."
+      },
+      "rightFileEndOffset": {
+        "type": "integer",
+        "description": "Position of last character of the thread\u0027s span in right file."
+      },
+      "rightFileStartLine": {
+        "type": "integer",
+        "description": "Position of first character of the thread\u0027s span in right file."
+      },
+      "rightFileStartOffset": {
+        "type": "integer",
+        "description": "Position of first character of the thread\u0027s span in right file."
+      }
+    },
+    "required": [
+      "repositoryId",
+      "pullRequestId",
+      "content",
+      "filePath"
+    ]
+  }
+}
+  
+{
+  "name": "listRepositories",
+  "description": "Retrieve all the git repositories in the project.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {},
+    "required": []
   }
 }
 ]
