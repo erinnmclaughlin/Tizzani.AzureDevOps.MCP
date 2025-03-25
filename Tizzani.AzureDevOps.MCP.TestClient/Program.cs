@@ -14,7 +14,7 @@ var configuration = new ConfigurationBuilder()
     .Build();
 
 var accessToken = configuration["AzureDevOps:AccessToken"];
-Console.WriteLine(accessToken);
+//Console.WriteLine(accessToken);
 
 Console.WriteLine("Starting server...");
 
@@ -24,6 +24,7 @@ var client = await McpClientFactory.CreateAsync(
         Id = "Tizzani.AzureDevOps.MCP",
         Name = "Tizzani.AzureDevOps.MCP",
         TransportType = TransportTypes.StdIo,
+        //Location = "http://localhost:5000/sse",
         TransportOptions = new Dictionary<string, string>
         {
             ["command"] = "dotnet",
@@ -34,6 +35,7 @@ var client = await McpClientFactory.CreateAsync(
     { 
         ClientInfo = new Implementation { Name = "TestClient", Version = "1.0.0" } 
     }
+    //loggerFactory: LoggerFactory.Create(x => x.AddConsole())
 );
 
 Console.WriteLine("Server started.");
@@ -56,7 +58,7 @@ await foreach (var tool in client.ListToolsAsync())
 var result = await client.CallToolAsync("getWorkItem", new Dictionary<string, object>
 {
     ["workItemId"] = 21,
-    ["fields"] = new[] { "System.Id", "System.Title", "System.State" }
+    //["fields"] = new[] { "System.Id", "System.Title", "System.State" }
 });
 
 Console.WriteLine(JsonSerializer.SerializeToElement(result.Content.FirstOrDefault()?.Text ?? "{}"));

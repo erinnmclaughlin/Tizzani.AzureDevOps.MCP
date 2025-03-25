@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tizzani.AzureDevOps.MCP", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tizzani.AzureDevOps.MCP.TestClient", "Tizzani.AzureDevOps.MCP.TestClient\Tizzani.AzureDevOps.MCP.TestClient.csproj", "{2AF62822-63D3-4BD5-BC25-A0AD7487104D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tizzani.AzureDevOps.MCP.SnapshotTests", "Tizzani.AzureDevOps.MCP.SnapshotTests\Tizzani.AzureDevOps.MCP.SnapshotTests.csproj", "{415C0E87-5DCD-4C82-B918-5839F11E37A0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{2AF62822-63D3-4BD5-BC25-A0AD7487104D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2AF62822-63D3-4BD5-BC25-A0AD7487104D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2AF62822-63D3-4BD5-BC25-A0AD7487104D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{415C0E87-5DCD-4C82-B918-5839F11E37A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{415C0E87-5DCD-4C82-B918-5839F11E37A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{415C0E87-5DCD-4C82-B918-5839F11E37A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{415C0E87-5DCD-4C82-B918-5839F11E37A0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

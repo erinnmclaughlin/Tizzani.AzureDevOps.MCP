@@ -26,6 +26,54 @@ public static class CustomMcpServerBuilder
         });
     }
 
+    public static Tool BuildTool(MethodInfo m, IServiceProvider sp)
+    {
+        return new Tool
+        {
+            Name = m.GetCustomAttribute<McpToolAttribute>()?.Name ?? m.Name,
+            Description = m.GetCustomAttribute<DescriptionAttribute>()?.Description,
+            InputSchema = JsonSerializer.SerializeToElement(new
+            {
+                type = "object",
+                properties = m.GetParameters()
+                    .Where(p => p.ParameterType != typeof(CancellationToken) && sp.GetService(p.ParameterType) == null)
+                    .ToDictionary(p => p.Name!, p =>
+                    {
+                        var node = JsonSerializerOptions.Default.GetJsonSchemaAsNode(p.ParameterType);
+                        string? type;
+
+                        if (node.GetValueKind() == JsonValueKind.String)
+                        {
+                            type = node.GetValue<string>();
+                        }
+                        else if (node.GetValueKind() == JsonValueKind.Object)
+                        {
+                            var typeObj = node.AsObject().TryGetPropertyValue("type", out var t) ? t : null;
+
+                            type = typeObj?.GetValueKind() == JsonValueKind.Array
+                                ? typeObj.AsArray().First()?.GetValue<string>()
+                                : typeObj?.GetValue<string>();
+                        }
+                        else
+                        {
+                            type = node.GetValue<string>();
+                        }
+                        
+                        return new
+                        {
+                            type,
+                            description = p.GetCustomAttribute<DescriptionAttribute>()?.Description
+                        };
+                    }),
+                required = m.GetParameters()
+                    .Where(p => p.ParameterType != typeof(CancellationToken) && sp.GetService(p.ParameterType) == null)
+                    .Where(p => !p.HasDefaultValue)
+                    .Select(p => p.Name)
+                    .ToArray()
+            })
+        };
+    }
+
     public static ToolsCapability AddMcpTools()
     {
         var methods = typeof(CustomMcpServerBuilder).Assembly
@@ -39,33 +87,10 @@ public static class CustomMcpServerBuilder
             {
                 using var scope = request.Server.ServiceProvider!.CreateScope();
                 var sp = scope.ServiceProvider;
-                
-                var options = JsonSerializerOptions.Default;
 
                 return Task.FromResult(new ListToolsResult
                 {
-                    Tools = methods.Select(m => new Tool
-                    {
-                        Name = m.GetCustomAttribute<McpToolAttribute>()?.Name ?? m.Name,
-                        Description = m.GetCustomAttribute<DescriptionAttribute>()?.Description,
-                        InputSchema = JsonSerializer.SerializeToElement(new
-                        {
-                            type = "object",
-                            properties = m.GetParameters()
-                                .Where(p => p.ParameterType != typeof(CancellationToken) && sp.GetService(p.ParameterType) == null)
-                                .ToDictionary(p => p.Name!, p => new
-                                {
-                                    type = options.GetJsonSchemaAsNode(p.ParameterType),
-                                    description = p.GetCustomAttribute<DescriptionAttribute>()?.Description
-                                }),
-                            required = m.GetParameters()
-                                .Where(p => p.ParameterType != typeof(CancellationToken) && sp.GetService(p.ParameterType) == null)
-                                .Where(p => !p.HasDefaultValue)
-                                .Select(p => p.Name)
-                                .ToArray()
-                        })
-                    })
-                    .ToList()
+                    Tools = methods.Select(m => BuildTool(m, sp)).ToList()
                 });
             },
             CallToolHandler = async (request, ct) =>

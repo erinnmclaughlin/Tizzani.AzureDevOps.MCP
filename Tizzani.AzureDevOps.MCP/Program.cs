@@ -1,45 +1,35 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using ModelContextProtocol.Protocol.Transport;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using ModelContextProtocol;
 using ModelContextProtocol.Protocol.Types;
-using ModelContextProtocol.Server;
 using System.Net.Http.Headers;
 using Tizzani.AzureDevOps.MCP;
 
-var configuration = new ConfigurationBuilder()
-    .AddCommandLine(args)
-    .AddEnvironmentVariables()
-    .Build();
+var builder = Host.CreateApplicationBuilder(args);
+builder.Logging.ClearProviders();
 
-var serviceCollection = new ServiceCollection();
-serviceCollection.AddSingleton<IConfiguration>(configuration);
-
-var adoToken = configuration.GetRequiredConfigurationValue("ado_token");
-var adoOrg = configuration.GetRequiredConfigurationValue("ado_organization");
-var adoProject = configuration.GetRequiredConfigurationValue("ado_project");
-
-serviceCollection.AddScoped(_ =>
+builder.Services.AddScoped(sp =>
 {
+    var c = sp.GetRequiredService<IConfiguration>();
+    var adoToken = c.GetRequiredConfigurationValue("ado_token");
+    var adoOrg = c.GetRequiredConfigurationValue("ado_organization");
+    var adoProject = c.GetRequiredConfigurationValue("ado_project");
+    
     var httpClient = new HttpClient { BaseAddress = new Uri($"https://dev.azure.com/{adoOrg}/{adoProject}/") };
     httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", $":{adoToken}".ToBase64EncodedString());
     httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
     return httpClient;
 });
 
-var serverOptions = new McpServerOptions
+builder.Services.AddMcpServer(o =>
 {
-    ServerInfo = new Implementation { Name = "AzureDevOpsMCP", Version = "1.0.0" },
-    Capabilities = new ServerCapabilities
+    o.ServerInfo = new Implementation { Name = "tizzani-adomcp", Version = "1.0.0" };
+    o.Capabilities = new ServerCapabilities
     {
         Tools = CustomMcpServerBuilder.AddMcpTools()
-    }
-};
+    };
+}).WithStdioServerTransport();
 
-var mcpServer = McpServerFactory.Create(new StdioServerTransport("AzureDevOpsMCP"), serverOptions, serviceProvider: serviceCollection.BuildServiceProvider());
-
-await mcpServer.StartAsync();
-
-while (true)
-{
-    await Task.Delay(2000);
-}
+await builder.Build().RunAsync();

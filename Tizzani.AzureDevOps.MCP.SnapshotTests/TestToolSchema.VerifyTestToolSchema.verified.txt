@@ -1,0 +1,215 @@
+﻿[  
+{
+  "name": "getComments",
+  "description": "Gets a list of comments for a specific work item.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "workItemId": {
+        "type": "integer",
+        "description": "The work item ID to get comments for."
+      }
+    },
+    "required": [
+      "workItemId"
+    ]
+  }
+}
+  
+{
+  "name": "addComment",
+  "description": "Adds a comment to a specific work item.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "workItemId": {
+        "type": "integer",
+        "description": "The ID of the work item to add a comment to."
+      },
+      "text": {
+        "type": "string",
+        "description": "The text of the comment to add."
+      }
+    },
+    "required": [
+      "workItemId",
+      "text"
+    ]
+  }
+}
+  
+{
+  "name": "getTags",
+  "description": "Get all the tags for the project.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {},
+    "required": []
+  }
+}
+  
+{
+  "name": "queryByWiql",
+  "description": "Executes a WIQL query against the Azure DevOps API.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "query": {
+        "type": "string",
+        "description": "The text of the WIQL query to execute."
+      }
+    },
+    "required": [
+      "query"
+    ]
+  }
+}
+  
+{
+  "name": "getWorkItems",
+  "description": "Returns a list of work items. (Maximum 200)",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "workItemIds": {
+        "type": "array",
+        "description": "The work item IDs."
+      },
+      "fields": {
+        "type": "array",
+        "description": "The fields to return in the results. If not included, all fields will be returned."
+      }
+    },
+    "required": [
+      "workItemIds"
+    ]
+  }
+}
+  
+{
+  "name": "getWorkItem",
+  "description": "Returns a single work item.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "workItemId": {
+        "type": "integer",
+        "description": "The work item ID."
+      }
+    },
+    "required": [
+      "workItemId"
+    ]
+  }
+}
+  
+{
+  "name": "getWorkItemTypeCategory",
+  "description": "Gets a specific work item type category by name.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "categoryName": {
+        "type": "string",
+        "description": "The category name."
+      }
+    },
+    "required": [
+      "categoryName"
+    ]
+  }
+}
+  
+{
+  "name": "getWorkItemTypeCategories",
+  "description": "Get all the work item type categories for the project.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {},
+    "required": []
+  }
+}
+  
+{
+  "name": "getWorkItemTypeFields",
+  "description": "Gets work item type fields for a given work item type",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "workItemType": {
+        "type": "string",
+        "description": "The work item type name."
+      }
+    },
+    "required": [
+      "workItemType"
+    ]
+  }
+}
+  
+{
+  "name": "getWorkItemTypeField",
+  "description": "Gets a specific work item type field by name.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "workItemType": {
+        "type": "string",
+        "description": "The work item type name."
+      },
+      "field": {
+        "type": "string",
+        "description": "The field name."
+      }
+    },
+    "required": [
+      "workItemType",
+      "field"
+    ]
+  }
+}
+  
+{
+  "name": "getWorkItemTypeStates",
+  "description": "Gets work item type states for a given work item type",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "workItemType": {
+        "type": "string",
+        "description": "The work item type name."
+      }
+    },
+    "required": [
+      "workItemType"
+    ]
+  }
+}
+  
+{
+  "name": "getWorkItemTypes",
+  "description": "Get all the work item types for the project.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {},
+    "required": []
+  }
+}
+  
+{
+  "name": "getWorkItemType",
+  "description": "Get a specific work item type by name.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "workItemType": {
+        "type": "string",
+        "description": "The work item type name."
+      }
+    },
+    "required": [
+      "workItemType"
+    ]
+  }
+}
+]

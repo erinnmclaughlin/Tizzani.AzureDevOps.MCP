@@ -5,7 +5,8 @@
     <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <Version>1.0.0-preview.20250324.1</Version>
+    <Nullable>enable</Nullable>
+    <Version>1.0.0-preview.20250324.2</Version>
     <Title>Tizzani.AzureDevOps.MCP</Title>
     <Authors>erinnmclaughlin</Authors>
     <Description>A collection of MCP tools for querying the Azure DevOps API.</Description>
@@ -36,6 +37,10 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.CommandLine" Version="9.0.3" />
     <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="9.0.3" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.3" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.3" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="9.0.3" />
     <PackageReference Include="ModelContextProtocol" Version="0.1.0-preview.1.25171.12" />
   </ItemGroup>
+  
+  
 </Project>
