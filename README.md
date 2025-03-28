@@ -3,8 +3,6 @@ An MCP Server for integrating with Azure DevOps REST API.
 
 [![Nuget version](https://img.shields.io/nuget/v/tizzani.azuredevops.mcp)](https://www.nuget.org/packages/Tizzani.AzureDevOps.MCP)
 
----
-
 ## Installation
 Download the tool from [NuGet](https://www.nuget.org/packages/Tizzani.AzureDevOps.MCP).
 ```sh
