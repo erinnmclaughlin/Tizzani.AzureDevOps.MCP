@@ -3,12 +3,12 @@ using System.Text.Json.Serialization;
 
 namespace Tizzani.AzureDevOps.MCP.Tools.Git;
 
-[McpToolType]
+[McpServerToolType]
 public static class AdoPullRequestsTool
 {
     private const string ApiVersion = "7.2-preview.2";
     
-    [McpTool("getPullRequests")]
+    [McpServerTool("getPullRequests")]
     [Description("Retrieve all pull requests matching a specified criteria. Please note that description field will be truncated up to 400 symbols in the result.")]
     public static async Task<JsonElement> GetPullRequests(
         HttpClient httpClient,
@@ -34,7 +34,7 @@ public static class AdoPullRequestsTool
         return await httpClient.GetFromJsonAsync<JsonElement>(requestUri, ct);
     }
 
-    [McpTool("getPullRequestById")]
+    [McpServerTool("getPullRequestById")]
     public static async Task<JsonElement> GetPullRequestById(
         HttpClient httpClient,
         [Description("The ID of the pull request to retrieve.")]

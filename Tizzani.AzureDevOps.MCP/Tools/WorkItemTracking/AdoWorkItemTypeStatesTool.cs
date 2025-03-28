@@ -1,11 +1,11 @@
 namespace Tizzani.AzureDevOps.MCP.Tools.WorkItemTracking;
 
-[McpToolType]
+[McpServerToolType]
 public static class AdoWorkItemTypeStatesTool
 {
     private const string ApiVersion = "7.2-preview.1";
     
-    [McpTool("getWorkItemTypeStates")]
+    [McpServerTool("getWorkItemTypeStates")]
     [Description("Gets work item type states for a given work item type")]
     public static async Task<JsonElement> GetWorkItemTypeStates(
         HttpClient httpClient,

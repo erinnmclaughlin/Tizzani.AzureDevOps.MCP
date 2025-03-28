@@ -1,12 +1,12 @@
 namespace Tizzani.AzureDevOps.MCP.Tools.WorkItemTracking;
 
-[McpToolType]
+[McpServerToolType]
 public static class AdoCommentsTool
 {
     private const string ApiBaseAddress = "_apis/wit/workItems";
     private const string ApiVersion = "7.2-preview.4";
     
-    [McpTool("getComments")]
+    [McpServerTool("getComments")]
     [Description("Gets a list of comments for a specific work item.")]
     public static async Task<JsonElement> GetWorkItemComments(
         HttpClient httpClient,
@@ -16,7 +16,7 @@ public static class AdoCommentsTool
         return await httpClient.GetFromJsonAsync<JsonElement>($"{ApiBaseAddress}/{workItemId}/comments?api-version={ApiVersion}", ct);
     }
     
-    [McpTool("addComment")]
+    [McpServerTool("addComment")]
     [Description("Adds a comment to a specific work item.")]
     public static async Task<JsonElement> AddWorkItemComment(
         HttpClient httpClient,

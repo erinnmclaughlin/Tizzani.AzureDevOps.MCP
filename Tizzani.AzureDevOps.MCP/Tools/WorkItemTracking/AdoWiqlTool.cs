@@ -1,11 +1,11 @@
 namespace Tizzani.AzureDevOps.MCP.Tools.WorkItemTracking;
 
-[McpToolType]
+[McpServerToolType]
 public static class AdoWiqlTool
 {
     private const string ApiVersion = "7.2-preview.2";
 
-    [McpTool("queryByWiql")]
+    [McpServerTool("queryByWiql")]
     [Description("Executes a WIQL query against the Azure DevOps API.")]
     public static async Task<JsonElement> ExecuteWiqlQuery(
         HttpClient httpClient,

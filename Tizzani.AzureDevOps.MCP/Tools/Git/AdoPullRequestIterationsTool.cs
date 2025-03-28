@@ -1,11 +1,11 @@
 namespace Tizzani.AzureDevOps.MCP.Tools.Git;
 
-[McpToolType]
+[McpServerToolType]
 public static class AdoPullRequestIterationsTool
 {
     private const string ApiVersion = "7.2-preview.2";
     
-    [McpTool("getPullRequestIterations")]
+    [McpServerTool("getPullRequestIterations")]
     [Description("Gets a list of iterations for a specific pull request.")]
     public static async Task<JsonElement> GetPullRequestIterations(
         HttpClient httpClient,
@@ -17,7 +17,7 @@ public static class AdoPullRequestIterationsTool
         return await response.Content.ReadFromJsonAsync<JsonElement>(ct);
     }
     
-    [McpTool("getPullRequestIteration")]
+    [McpServerTool("getPullRequestIteration")]
     [Description("Gets a specific iteration for a specific pull request.")]
     public static async Task<JsonElement> GetPullRequestIteration(
         HttpClient httpClient,

@@ -1,11 +1,11 @@
 namespace Tizzani.AzureDevOps.MCP.Tools.Git;
 
-[McpToolType]
+[McpServerToolType]
 public static class AdoPullRequestThreadsTool
 {
     private const string ApiVersion = "7.2-preview.1";
     
-    [McpTool("getPullRequestThreads")]
+    [McpServerTool("getPullRequestThreads")]
     [Description("Retrieve all threads for a specified pull request.")]
     public static async Task<JsonElement> GetPullRequestThreads(
         HttpClient httpClient,
@@ -18,7 +18,7 @@ public static class AdoPullRequestThreadsTool
         return await httpClient.GetFromJsonAsync<JsonElement>($"_apis/git/repositories/{repositoryId}/pullRequests/{pullRequestId}/threads?api-version={ApiVersion}", ct);
     }
     
-    [McpTool("createPullRequestThread")]
+    [McpServerTool("createPullRequestThread")]
     [Description("Creates a new thread on the pull request.")]
     public static async Task<JsonElement> CreatePullRequestThread(
         HttpClient httpClient,
@@ -42,7 +42,7 @@ public static class AdoPullRequestThreadsTool
         return await response.Content.ReadFromJsonAsync<JsonElement>(ct);
     }
     
-    [McpTool("createPullRequestThreadForFile")]
+    [McpServerTool("createPullRequestThreadForFile")]
     [Description("Creates a new comment on the pull request for a specific file.")]
     public static async Task<JsonElement> CreatePullRequestThreadForFile(
         HttpClient httpClient,

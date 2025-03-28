@@ -1,11 +1,11 @@
 namespace Tizzani.AzureDevOps.MCP.Tools.Git;
 
-[McpToolType]
+[McpServerToolType]
 public static class AdoBlobsTool
 {
     private const string ApiVersion = "7.2-preview.1";
     
-    [McpTool("getBlob")]
+    [McpServerTool("getBlob")]
     [Description("Gets the file contents of a specific blob.")]
     public static async Task<string> GetBlob(
         HttpClient httpClient,

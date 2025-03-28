@@ -8,7 +8,7 @@ An MCP Server for integrating with Azure DevOps REST API.
 ## Installation
 Download the tool from [NuGet](https://www.nuget.org/packages/Tizzani.AzureDevOps.MCP).
 ```sh
-dotnet tool install --global Tizzani.AzureDevOps.MCP --version 1.0.0-preview.20250325.3
+dotnet tool install --global Tizzani.AzureDevOps.MCP --prerelease
 ```
 
 ## IDE Integration
