@@ -8,7 +8,7 @@ public static class AdoPullRequestsTool
 {
     private const string ApiVersion = "7.2-preview.2";
     
-    [McpServerTool("getPullRequests")]
+    [McpServerTool(Name = "getPullRequests")]
     [Description("Retrieve all pull requests matching a specified criteria. Please note that description field will be truncated up to 400 symbols in the result.")]
     public static async Task<JsonElement> GetPullRequests(
         HttpClient httpClient,
@@ -34,7 +34,7 @@ public static class AdoPullRequestsTool
         return await httpClient.GetFromJsonAsync<JsonElement>(requestUri, ct);
     }
 
-    [McpServerTool("getPullRequestById")]
+    [McpServerTool(Name = "getPullRequestById")]
     public static async Task<JsonElement> GetPullRequestById(
         HttpClient httpClient,
         [Description("The ID of the pull request to retrieve.")]

@@ -8,7 +8,7 @@ public static class AdoDiffsTool
 {
     private const string ApiVersion = "7.2-preview.1";
     
-    [McpServerTool("getDiffs")]
+    [McpServerTool(Name = "getDiffs")]
     [Description("Gets a list of diffs between two branches.")]
     public static async Task<JsonElement> GetBranchDiffs(
         HttpClient httpClient,

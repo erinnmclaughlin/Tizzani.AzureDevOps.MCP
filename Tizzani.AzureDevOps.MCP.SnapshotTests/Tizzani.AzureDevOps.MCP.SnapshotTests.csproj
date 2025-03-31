@@ -31,4 +31,16 @@
     <ProjectReference Include="..\Tizzani.AzureDevOps.MCP\Tizzani.AzureDevOps.MCP.csproj" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <Content Condition="$([MSBuild]::IsOSPlatform('Windows'))" Include="$(MSBuildProjectDirectory)\..\Tizzani.AzureDevOps.MCP\bin\$(Configuration)\$(TargetFramework)\Tizzani.AzureDevOps.MCP.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Condition="$([MSBuild]::IsOSPlatform('Linux'))" Include="$(MSBuildProjectDirectory)\..\Tizzani.AzureDevOps.MCP\bin\$(Configuration)\$(TargetFramework)\Tizzani.AzureDevOps.MCP.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Condition="$([MSBuild]::IsOSPlatform('MacOS'))" Include="$(MSBuildProjectDirectory)\..\Tizzani.AzureDevOps.MCP\bin\$(Configuration)\$(TargetFramework)\Tizzani.AzureDevOps.MCP.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 </Project>

@@ -5,7 +5,7 @@ public static class AdoPullRequestIterationsTool
 {
     private const string ApiVersion = "7.2-preview.2";
     
-    [McpServerTool("getPullRequestIterations")]
+    [McpServerTool(Name = "getPullRequestIterations")]
     [Description("Gets a list of iterations for a specific pull request.")]
     public static async Task<JsonElement> GetPullRequestIterations(
         HttpClient httpClient,
@@ -17,7 +17,7 @@ public static class AdoPullRequestIterationsTool
         return await response.Content.ReadFromJsonAsync<JsonElement>(ct);
     }
     
-    [McpServerTool("getPullRequestIteration")]
+    [McpServerTool(Name = "getPullRequestIteration")]
     [Description("Gets a specific iteration for a specific pull request.")]
     public static async Task<JsonElement> GetPullRequestIteration(
         HttpClient httpClient,

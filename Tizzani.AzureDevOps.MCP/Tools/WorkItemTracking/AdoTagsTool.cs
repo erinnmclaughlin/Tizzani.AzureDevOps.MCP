@@ -5,7 +5,7 @@ public static class AdoTagsTool
 {
     private const string ApiVersion = "7.2-preview.1";
     
-    [McpServerTool("getTags")]
+    [McpServerTool(Name = "getTags")]
     [Description("Get all the tags for the project.")]
     public static async Task<JsonElement> GetWorkItemTags(HttpClient httpClient, CancellationToken ct = default)
     {

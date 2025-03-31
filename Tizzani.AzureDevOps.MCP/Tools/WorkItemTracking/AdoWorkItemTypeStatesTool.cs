@@ -5,7 +5,7 @@ public static class AdoWorkItemTypeStatesTool
 {
     private const string ApiVersion = "7.2-preview.1";
     
-    [McpServerTool("getWorkItemTypeStates")]
+    [McpServerTool(Name = "getWorkItemTypeStates")]
     [Description("Gets work item type states for a given work item type")]
     public static async Task<JsonElement> GetWorkItemTypeStates(
         HttpClient httpClient,

@@ -5,7 +5,7 @@ public static class AdoBlobsTool
 {
     private const string ApiVersion = "7.2-preview.1";
     
-    [McpServerTool("getBlob")]
+    [McpServerTool(Name = "getBlob")]
     [Description("Gets the file contents of a specific blob.")]
     public static async Task<string> GetBlob(
         HttpClient httpClient,

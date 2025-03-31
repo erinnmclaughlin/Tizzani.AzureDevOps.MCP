@@ -6,7 +6,7 @@ public static class AdoWorkItemsTool
     private const string ApiBaseAddress = "_apis/wit/workitems";
     private const string ApiVersion = "7.2-preview.3";
     
-    [McpServerTool("getWorkItems")]
+    [McpServerTool(Name = "getWorkItems")]
     [Description("Returns a list of work items. (Maximum 200)")]
     public static async Task<JsonElement> GetWorkItems(
         HttpClient httpClient,
@@ -23,7 +23,7 @@ public static class AdoWorkItemsTool
         return await httpClient.GetFromJsonAsync<JsonElement>(requestUri, ct);
     }
     
-    [McpServerTool("getWorkItem")]
+    [McpServerTool(Name = "getWorkItem")]
     [Description("Returns a single work item.")]
     public static async Task<JsonElement> GetWorkItem(
         HttpClient httpClient,

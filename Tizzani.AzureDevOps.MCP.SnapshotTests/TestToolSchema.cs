@@ -1,12 +1,7 @@
-using Microsoft.Extensions.DependencyInjection;
 using ModelContextProtocol;
 using ModelContextProtocol.Client;
-using ModelContextProtocol.Configuration;
 using ModelContextProtocol.Protocol.Transport;
-using ModelContextProtocol.Server;
-using System.IO.Pipelines;
 using System.Text.Json;
-using Tizzani.AzureDevOps.MCP.Tools.Git;
 
 namespace Tizzani.AzureDevOps.MCP.SnapshotTests;
 
@@ -17,45 +12,35 @@ public sealed class TestToolSchema
         WriteIndented = true
     };
     
-    private readonly Pipe _clientToServerPipe = new();
-    private readonly Pipe _serverToClientPipe = new();
-    private readonly IMcpServer _server;
+    private readonly McpServerConfig _testServerConfig;
     
     public TestToolSchema()
     {
-        ServiceCollection sc = new();
-        sc.AddSingleton<IServerTransport>(new StdioServerTransport("TestServer", _clientToServerPipe.Reader.AsStream(), _serverToClientPipe.Writer.AsStream()));
-        sc.AddSingleton(new HttpClient());
-        sc.AddMcpServer().WithToolsFromAssembly(typeof(AdoPullRequestsTool).Assembly);
-        
-        _server = sc.BuildServiceProvider().GetRequiredService<IMcpServer>();
+        _testServerConfig = new McpServerConfig
+        {
+            Id = "test_server",
+            Name = "TestServer",
+            TransportType = TransportTypes.StdIo,
+            TransportOptions = new Dictionary<string, string>
+            {
+                ["command"] = OperatingSystem.IsWindows() ? "Tizzani.AzureDevOps.MCP.exe" : "dotnet",
+                ["arguments"] = ""
+            }
+        };
+
+        if (!OperatingSystem.IsWindows())
+        {
+            _testServerConfig.TransportOptions["arguments"] = "Tizzani.AzureDevOps.MCP.dll";
+        }
+
+        _testServerConfig.TransportOptions["arguments"] += " --ado_token=nope --ado_organization=nope --ado_project=nope";
     }
     
     [Fact]
     public async Task VerifyTestToolSchema()
     {
-        var client = await CreateMcpClientForServer();
+        var client = await McpClientFactory.CreateAsync(_testServerConfig, cancellationToken: TestContext.Current.CancellationToken);
         var tools = await client.ListToolsAsync(TestContext.Current.CancellationToken);
         await Verify(JsonSerializer.Serialize(tools.Select(x => x.JsonSchema), JsonOptions));
-    }
-
-    private async Task<IMcpClient> CreateMcpClientForServer()
-    {
-        await _server.StartAsync(TestContext.Current.CancellationToken);
-
-        var serverStdinWriter = new StreamWriter(_clientToServerPipe.Writer.AsStream());
-        var serverStdoutReader = new StreamReader(_serverToClientPipe.Reader.AsStream());
-
-        var serverConfig = new McpServerConfig
-        {
-            Id = "TestServer",
-            Name = "TestServer",
-            TransportType = "ignored",
-        };
-
-        return await McpClientFactory.CreateAsync(
-            serverConfig,
-            createTransportFunc: (_, _) => new StreamClientTransport(serverStdinWriter, serverStdoutReader),
-            cancellationToken: TestContext.Current.CancellationToken);
     }
 }

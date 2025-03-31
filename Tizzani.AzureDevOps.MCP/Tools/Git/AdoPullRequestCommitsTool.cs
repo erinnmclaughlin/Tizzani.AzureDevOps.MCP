@@ -5,7 +5,7 @@ public static class AdoPullRequestCommitsTool
 {
     private const string ApiVersion = "7.2-preview.1";
     
-    [McpServerTool("getPullRequestCommits")]
+    [McpServerTool(Name = "getPullRequestCommits")]
     [Description("Gets a list of commits for a specific pull request.")]
     public static async Task<JsonElement> GetPullRequestCommits(
         HttpClient httpClient,
@@ -17,7 +17,7 @@ public static class AdoPullRequestCommitsTool
         return await response.Content.ReadFromJsonAsync<JsonElement>(ct);
     }
     
-    [McpServerTool("getPullRequestCommit")]
+    [McpServerTool(Name = "getPullRequestCommit")]
     [Description("Gets a list of commits for a specific pull request.")]
     public static async Task<JsonElement> GetPullRequestCommit(
         HttpClient httpClient,

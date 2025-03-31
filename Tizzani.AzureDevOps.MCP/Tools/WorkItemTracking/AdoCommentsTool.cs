@@ -6,7 +6,7 @@ public static class AdoCommentsTool
     private const string ApiBaseAddress = "_apis/wit/workItems";
     private const string ApiVersion = "7.2-preview.4";
     
-    [McpServerTool("getComments")]
+    [McpServerTool(Name = "getComments")]
     [Description("Gets a list of comments for a specific work item.")]
     public static async Task<JsonElement> GetWorkItemComments(
         HttpClient httpClient,
@@ -16,7 +16,7 @@ public static class AdoCommentsTool
         return await httpClient.GetFromJsonAsync<JsonElement>($"{ApiBaseAddress}/{workItemId}/comments?api-version={ApiVersion}", ct);
     }
     
-    [McpServerTool("addComment")]
+    [McpServerTool(Name = "addComment")]
     [Description("Adds a comment to a specific work item.")]
     public static async Task<JsonElement> AddWorkItemComment(
         HttpClient httpClient,
