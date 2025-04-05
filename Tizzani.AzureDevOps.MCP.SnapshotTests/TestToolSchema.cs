@@ -40,7 +40,7 @@ public sealed class TestToolSchema
     public async Task VerifyTestToolSchema()
     {
         var client = await McpClientFactory.CreateAsync(_testServerConfig, cancellationToken: TestContext.Current.CancellationToken);
-        var tools = await client.ListToolsAsync(TestContext.Current.CancellationToken);
+        var tools = await client.ListToolsAsync(cancellationToken: TestContext.Current.CancellationToken);
         await Verify(JsonSerializer.Serialize(tools.Select(x => x.JsonSchema), JsonOptions));
     }
 }
